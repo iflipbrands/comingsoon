@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B1024">
+  <title>iFlipBrands — Launching September 25</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --teal: #00C2B8;
+      --cyan: #00E0FF;
+      --navy: #0B1024;
+      --white: #FFFFFF;
+      --muted: #9AA7BD;
+      --line: rgba(255,255,255,.12);
+      --panel: rgba(11,16,36,.74);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(37,99,235,.26), transparent 34%),
+        radial-gradient(circle at 84% 78%, rgba(0,194,184,.18), transparent 32%),
+        linear-gradient(135deg, #070A16 0%, var(--navy) 48%, #08101d 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto -10% -20% -10%;
+      height: 42vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .72;
+      background:
+        repeating-linear-gradient(166deg,
+          transparent 0 13px,
+          rgba(0,224,255,.08) 14px 15px,
+          transparent 16px 28px);
+      transform: skewY(-4deg);
+      filter: blur(.3px);
+    }
+
+    body::after {
+      inset: -18% -20% auto 45%;
+      height: 50vh;
+      opacity: .35;
+      background: radial-gradient(circle, rgba(0,224,255,.24), transparent 65%);
+      filter: blur(36px);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 42px 0 26px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+
+    .logo img {
+      width: clamp(170px, 21vw, 255px);
+      height: auto;
+      display: block;
+    }
+
+    .launch-pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding: 10px 15px;
+      color: #C8D3E5;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .launch-pill span { color: var(--cyan); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(360px, .88fr);
+      gap: 56px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(3.35rem, 7vw, 7.2rem);
+      line-height: .93;
+      letter-spacing: -.058em;
+      font-weight: 850;
+      margin-bottom: 25px;
+    }
+
+    .gradient-word {
+      color: var(--cyan);
+      background: linear-gradient(90deg, var(--blue), var(--teal), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      max-width: 660px;
+      color: #B9C4D7;
+      font-size: clamp(1.05rem, 1.5vw, 1.26rem);
+      line-height: 1.72;
+      margin-bottom: 34px;
+    }
+
+    .lead strong { color: var(--white); font-weight: 700; }
+
+    .countdown-wrap {
+      max-width: 670px;
+      padding-top: 8px;
+    }
+
+    .countdown-label {
+      color: #6F7D95;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(72px, 1fr));
+      gap: 10px;
+    }
+
+    .time-box {
+      min-width: 0;
+      padding: 19px 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+      text-align: center;
+    }
+
+    .time-value {
+      display: block;
+      font-size: clamp(1.75rem, 4vw, 2.55rem);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .time-unit {
+      display: block;
+      margin-top: 8px;
+      color: #75849D;
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .services {
+      display: flex;
+      justify-content: center;
+      gap: 13px 24px;
+      flex-wrap: wrap;
+      margin-top: 42px;
+      padding: 22px 18px 2px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: #8695AD;
+      font-size: .82rem;
+      font-weight: 650;
+      letter-spacing: .015em;
+    }
+
+    .services span { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+    .services i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: 0 0 9px; }
+    .services span:nth-child(3n+1) i { background: var(--blue); }
+    .services span:nth-child(3n+2) i { background: var(--teal); }
+    .services span:nth-child(3n) i { background: var(--cyan); }
+
+    .form-success {
+      display: none;
+      padding: 25px 18px;
+      border: 1px solid rgba(0,224,255,.2);
+      border-radius: 16px;
+      background: rgba(0,224,255,.055);
+      text-align: center;
+    }
+
+    .form-success.show { display: block; }
+    .form-success strong { display: block; font-size: 1.12rem; margin-bottom: 7px; color: var(--white); }
+    .form-success p { color: #9CACBF; line-height: 1.55; font-size: .93rem; }
+
+    .form-error {
+      display: none;
+      margin-top: 12px;
+      color: #D7E1EF;
+      font-size: .78rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .form-error.show { display: block; }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,224,255,.18);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(12,20,40,.92), rgba(8,13,29,.86));
+      box-shadow: 0 24px 70px rgba(0,0,0,.30);
+      padding: 30px;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--teal), var(--cyan));
+    }
+
+    .panel-kicker {
+      color: var(--cyan);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .panel h2 {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      letter-spacing: -.035em;
+      margin-bottom: 10px;
+    }
+
+    .panel-copy {
+      color: #97A5BB;
+      font-size: .91rem;
+      line-height: 1.45;
+      margin-bottom: 18px;
+      white-space: nowrap;
+    }
+
+    .honeypot-field {
+      position: absolute !important;
+      left: -10000px !important;
+      top: auto !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    select:invalid { color: #66758E; }
+    select option { color: #0B1024; background: #FFFFFF; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      margin: 0 0 7px 2px;
+      color: #B8C3D4;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      background: rgba(255,255,255,.045);
+      color: var(--white);
+      padding: 13px 14px;
+      outline: none;
+      font: inherit;
+      font-size: .95rem;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: #66758E; }
+
+    select {
+      padding-right: 34px;
+      background-position: right 14px center;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(0,224,255,.65);
+      box-shadow: 0 0 0 3px rgba(0,224,255,.08);
+      background: rgba(255,255,255,.06);
+    }
+
+    textarea { resize: vertical; min-height: 118px; }
+
+    .submit-btn {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 16px;
+      border: 0;
+      border-radius: 12px;
+      color: #05101C;
+      background: linear-gradient(90deg, var(--blue), var(--teal) 56%, var(--cyan));
+      font-size: .83rem;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .2s ease, filter .2s ease;
+    }
+
+    .submit-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .submit-btn:focus-visible { outline: 3px solid rgba(255,255,255,.5); outline-offset: 3px; }
+
+    .privacy {
+      margin-top: 12px;
+      color: #64728A;
+      font-size: .72rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 64px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: #65728A;
+      font-size: .76rem;
+    }
+
+    footer strong { color: #A8B5C9; font-weight: 650; }
+
+    @media (max-width: 900px) {
+      .page { padding-top: 28px; }
+      .topbar { margin-bottom: 42px; }
+      .hero { grid-template-columns: 1fr; gap: 42px; }
+      .panel { max-width: 680px; }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100% - 28px, 1180px); padding-top: 22px; }
+      .topbar { align-items: flex-start; margin-bottom: 40px; }
+      .launch-pill { font-size: .64rem; padding: 8px 11px; }
+      h1 { font-size: clamp(3.15rem, 16vw, 5rem); }
+      .lead { font-size: 1rem; }
+      .countdown { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .panel { padding: 24px 18px; border-radius: 20px; }
+      .panel-copy { white-space: normal; }
+      footer { margin-top: 46px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="logo" href="#" aria-label="iFlipBrands home">
+        <img src="iflipbrands_white.png" alt="iFlipBrands">
+      </a>
+      <div class="launch-pill">Launching <span>09.25.26</span></div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">20+ Years Experience Building Brands</div>
+        <h1>We’re building something <span class="gradient-word">better.</span></h1>
+        <p class="lead">
+          The new iFlipBrands experience launches <strong>September 25, 2026.</strong>
+          We build brands, websites, digital experiences, and AI-powered creative that help businesses show up stronger and move forward. If you need a project before launch, you can still reach us now.
+        </p>
+
+        <div class="countdown-wrap" aria-labelledby="countdown-title">
+          <div class="countdown-label" id="countdown-title">Website launch countdown</div>
+          <div class="countdown" aria-live="polite">
+            <div class="time-box"><span class="time-value" id="days">--</span><span class="time-unit">Days</span></div>
+            <div class="time-box"><span class="time-value" id="hours">--</span><span class="time-unit">Hours</span></div>
+            <div class="time-box"><span class="time-value" id="minutes">--</span><span class="time-unit">Minutes</span></div>
+            <div class="time-box"><span class="time-value" id="seconds">--</span><span class="time-unit">Seconds</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="panel" id="inquiry">
+        <div class="panel-kicker">Project inquiries are open</div>
+        <h2>Need something built?</h2>
+        <p class="panel-copy">Tell us what you’re working on and we’ll be in touch shortly.</p>
+
+        <form id="inquiry-form" action="https://formsubmit.co/ajax/iflipbrands@gmail.com" method="POST">
+          <input type="hidden" id="form-subject" name="_subject" value="iFlipBrands Inquiry">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <div class="honeypot-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" type="text" name="_honey" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="company">Company / Brand</label>
+              <input id="company" name="company" type="text" placeholder="Company or brand name" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" autocomplete="tel">
+            </div>
+            <div class="field full">
+              <label for="service">Service Needed</label>
+              <select id="service" name="service" required>
+                <option value="" selected disabled>Please choose a service</option>
+                <option value="Brand / Strategy Consulting">Brand / Strategy Consulting</option>
+                <option value="Web Design & Development">Web Design &amp; Development</option>
+                <option value="Graphic & Print Design">Graphic &amp; Print Design</option>
+                <option value="Copywriting">Copywriting</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="Social Media Marketing">Social Media Marketing</option>
+                <option value="SEO Services">SEO Services</option>
+                <option value="Mobile App Development">Mobile App Development</option>
+                <option value="AI Animation">AI Animation</option>
+                <option value="AI Commercials">AI Commercials</option>
+                <option value="AI Agents">AI Agents</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">Tell us more about your project</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+          </div>
+
+          <button class="submit-btn" type="submit">Send Inquiry</button>
+          <p class="privacy">Your inquiry is sent directly to iFlipBrands. No mailing-list signup required.</p>
+          <p class="form-error" id="form-error" role="alert">Something went wrong while sending your inquiry. Please try again.</p>
+        </form>
+        <div class="form-success" id="form-success" role="status" aria-live="polite">
+          <strong>Your message was sent successfully.</strong>
+          <p>Thank you for reaching out to iFlipBrands. We received your inquiry and will be in touch shortly.</p>
+        </div>
+      </aside>
+    </section>
+
+    <div class="services" aria-label="iFlipBrands services">
+      <span><i></i> Web Design</span>
+      <span><i></i> Copywriting</span>
+      <span><i></i> Digital Marketing</span>
+      <span><i></i> SMM</span>
+      <span><i></i> SEO Services</span>
+      <span><i></i> Mobile Apps</span>
+      <span><i></i> AI Animation &amp; Commercials</span>
+      <span><i></i> AI Agents</span>
+    </div>
+
+    <footer>
+      <span>© 2026 <strong>iFlipBrands</strong> · JDW Group LLC.</span>
+      <span>Built to stand out. Designed to move business forward.</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const target = new Date('2026-09-25T00:00:00-07:00').getTime();
+      const els = {
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
+        minutes: document.getElementById('minutes'),
+        seconds: document.getElementById('seconds')
+      };
+
+      function updateCountdown() {
+        const now = Date.now();
+        const diff = Math.max(0, target - now);
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        els.days.textContent = String(days).padStart(2, '0');
+        els.hours.textContent = String(hours).padStart(2, '0');
+        els.minutes.textContent = String(minutes).padStart(2, '0');
+        els.seconds.textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      const form = document.getElementById('inquiry-form');
+      const success = document.getElementById('form-success');
+      const error = document.getElementById('form-error');
+      const service = document.getElementById('service');
+      const subject = document.getElementById('form-subject');
+      const honey = document.getElementById('website');
+
+      if (form) {
+        form.addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          if (honey && honey.value.trim() !== '') {
+            form.reset();
+            form.style.display = 'none';
+            success.classList.add('show');
+            return;
+          }
+
+          if (service && subject) {
+            subject.value = `iFlipBrands Inquiry - ${service.value}`;
+          }
+
+          const button = form.querySelector('.submit-btn');
+          const originalText = button.textContent;
+          button.disabled = true;
+          button.textContent = 'Sending...';
+          error.classList.remove('show');
+
+          try {
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { 'Accept': 'application/json' }
+            });
+
+            if (!response.ok) throw new Error('Submission failed');
+
+            form.reset();
+            form.style.display = 'none';
+            success.classList.add('show');
+          } catch (err) {
+            error.classList.add('show');
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
